@@ -10,29 +10,37 @@ def cool(string):
         if x in tracker:
             freq[x] += 1
         else:
-            freq[x] = 0
+            freq[x] = 1
             tracker.add(x)
     
-    trackerList = list(tracker)
+    trackerList = sorted(list(tracker))
     if len(trackerList) == 0:
         print("True")
         return
     
     i = 0
     numDiff = 0
-    while i <= len(trackerList)-2:
+    while i < len(trackerList)-1:
         firstVal = freq[trackerList[i]]
         secondVal = freq[trackerList[i+1]]
-        if abs(firstVal - secondVal) > 1:
-            print("False")
-            return
-        elif abs(firstVal - secondVal) == 1:
+        if (firstVal != secondVal) and (firstVal == 1):
             numDiff += 1
             if numDiff > 1:
                 print("False")
                 return
+        elif abs(firstVal - secondVal) >= 1:
+            print("False")
+            return
         i+=1
     print("True")
 
 
-cool("abcddee")
+cool("abbcc")
+cool("a")
+cool("aaa")
+cool("abbbbcccc")
+cool("aaabbbcc")
+cool("aaabbbbc")
+cool("abbbbbbbbbbbbbb")
+cool("aabbbbbbbbbbbbbbbbbbbbbbbbb")
+cool("abbccc")
