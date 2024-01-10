@@ -17,30 +17,49 @@ def cool(string):
     if len(trackerList) == 0:
         print("True")
         return
-    
-    i = 0
-    numDiff = 0
-    while i < len(trackerList)-1:
-        firstVal = freq[trackerList[i]]
-        secondVal = freq[trackerList[i+1]]
-        if (firstVal != secondVal) and (firstVal == 1):
-            numDiff += 1
-            if numDiff > 1:
+
+    numDif = 0
+
+    sortDict = sorted(freq.items(), key=lambda x:x[1])
+    l = 0
+    r = len(sortDict) - 1
+
+    while l <= r:
+        if sortDict[l][1] == sortDict[r][1]:
+            print("True")
+            return
+        else:
+            if sortDict[r][1] - 1 != sortDict[l][1] and sortDict[l][1] - 1 != 0:
                 print("False")
                 return
-        elif abs(firstVal - secondVal) >= 1:
-            print("False")
-            return
-        i+=1
+            
+            elif sortDict[r][1] - 1 == sortDict[l][1] and sortDict[l][1] - 1 == 0:
+                if sortDict[r-1][1] == sortDict[r][1]:
+                    l+=1
+                else:
+                    r-=1
+                numDif+=1
+
+            elif sortDict[l][1] - 1 == 0:
+                l += 1
+                numDif += 1
+            elif sortDict[r][1] - 1 == sortDict[l][1]:
+                r -= 1
+                numDif += 1
+            if numDif > 1:
+                print("False")
+                return
+
     print("True")
+    return
 
-
-cool("abbcc")
 cool("a")
-cool("aaa")
-cool("abbbbcccc")
-cool("aaabbbcc")
-cool("aaabbbbc")
-cool("abbbbbbbbbbbbbb")
-cool("aabbbbbbbbbbbbbbbbbbbbbbbbb")
+cool("ab")
+cool("abc")
+cool("abbcc")
+cool("abbc")
+cool("abbbccc")
+cool("aabbeef")
+cool("abbbcccc")
 cool("abbccc")
+cool("aabbbc")
