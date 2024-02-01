@@ -1,0 +1,11 @@
+def start_profit(profits):
+    
+    dp = [0] * len(profits)
+    
+    dp[0] = profits[0]
+    dp[1] = max(profits[0], profits[1])
+    
+    for i in range(2, len(profits)):
+        dp[i] = max(dp[i-2]+ dp[i], dp[i-1])
+    
+    return dp[len(dp)-1]
